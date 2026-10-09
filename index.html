@@ -10,41 +10,42 @@
   :root { --navy:#10195A; --ink:#10195A; --muted:#4A5170; --bg:#EEF0F4; --card:#FFFFFF; --line:#DADEE7; }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--ink); font-family:'Poppins', system-ui, sans-serif; }
-  header { background:var(--navy); color:#fff; padding:28px 16px; text-align:center; }
-  header h1 { margin:0; font-size:clamp(22px, 4vw, 34px); font-weight:700; letter-spacing:-0.01em; }
-  header p { margin:6px 0 0; font-size:15px; color:#C9CEE6; }
-  main { max-width:1320px; margin:0 auto; padding:32px 16px 56px; display:grid; gap:24px;
-         grid-template-columns:repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
-  .stage { position:relative; height:560px; background:linear-gradient(180deg,#F3F4F7 0%,#F3F4F7 60%,#DCE0E8 100%);
+  header { max-width:1200px; margin:0 auto; padding:28px 16px 8px; }
+  header h1 { margin:0; font-size:20px; font-weight:700; }
+  header p { margin:2px 0 0; font-size:13px; color:var(--muted); }
+  main { max-width:1200px; margin:0 auto; padding:16px 16px 40px; display:grid; gap:16px;
+         grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .stage { position:relative; height:380px; background:#F5F6F8; border-bottom:1px solid var(--line);
            perspective:2200px; perspective-origin:50% 12%; cursor:grab; touch-action:none; user-select:none; overflow:hidden; }
   .stage:active { cursor:grabbing; }
-  .shadow { position:absolute; left:50%; transform:translateX(-50%); border-radius:50%; background:rgba(15,25,60,.32); filter:blur(18px); height:36px; transition:opacity .3s; }
+  .shadow { position:absolute; left:50%; transform:translateX(-50%); border-radius:50%; background:rgba(15,25,60,.25); filter:blur(14px); height:24px; transition:opacity .3s; }
   .box { position:absolute; left:50%; top:50%; transform-style:preserve-3d; }
   .face { position:absolute; backface-visibility:hidden; }
   .face img { display:block; width:100%; height:100%; pointer-events:none; -webkit-user-drag:none; }
   .face .shade { position:absolute; inset:0; }
-  .meta { padding:16px 20px 22px; display:flex; flex-direction:column; gap:14px; }
-  .meta h2 { margin:0; font-size:19px; font-weight:700; }
-  .meta p { margin:0; font-size:14px; color:var(--muted); }
-  .label { font-size:12px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 -6px; }
-  .row { display:flex; gap:8px; flex-wrap:wrap; }
-  button, .btn { font:inherit; font-size:14px; font-weight:500; color:var(--navy); background:#fff; border:1.5px solid var(--navy);
-           border-radius:999px; padding:9px 15px; min-height:44px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
-  button:hover, .btn:hover { background:#F0F2FA; }
+  .meta { padding:12px 14px 14px; display:flex; flex-direction:column; gap:10px; }
+  .meta h2 { margin:0; font-size:14px; font-weight:600; }
+  .label { display:none; }
+  .row { display:flex; gap:6px; flex-wrap:wrap; }
+  .views { gap:0; border:1px solid var(--line); border-radius:6px; overflow:hidden; width:max-content; max-width:100%; }
+  .views button { border:0; border-right:1px solid var(--line); border-radius:0; }
+  .views button:last-child { border-right:0; }
+  button, .btn { font:inherit; font-size:12px; font-weight:500; color:var(--navy); background:#fff; border:1px solid var(--line);
+           border-radius:6px; padding:5px 10px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:4px; line-height:1.4; }
+  button:hover, .btn:hover { background:#F0F2F7; }
   button[aria-pressed="true"] { background:var(--navy); color:#fff; }
-  .btn.solid { background:var(--navy); color:#fff; }
+  .btn.solid { background:var(--navy); border-color:var(--navy); color:#fff; }
   .btn.solid:hover { background:#1E2A7A; }
   .btn[aria-disabled="true"] { opacity:.45; pointer-events:none; }
-  .btn svg { width:16px; height:16px; }
-  footer { text-align:center; font-size:13px; color:var(--muted); padding:0 16px 40px; }
-  @media (max-width:480px){ .stage { height:460px; } }
+  button svg, .btn svg { width:13px; height:13px; flex:none; }
+  footer { text-align:center; font-size:12px; color:var(--muted); padding:0 16px 32px; }
 </style>
 </head>
 <body>
 <header>
   <h1>DMX Shower Base — Box Mockups</h1>
-  <p>Drag a box to rotate it · download any view as a high-res PNG</p>
+  <p>Drag to rotate · pick a view to download it as a PNG</p>
 </header>
 <main>
   <section class="card" data-slug="38x60-circular" data-w="1637" data-h="2576" data-d="76">
@@ -139,8 +140,8 @@
       });
       dlRow.appendChild(b);
     }
-    zipButton('All views + artwork (ZIP)', mockups.concat(originals), 'DMX-' + slug + '-mockups.zip');
-    zipButton('Original artwork (ZIP)', originals, 'DMX-' + slug + '-original-artwork.zip');
+    zipButton('All views (ZIP)', mockups.concat(originals), 'DMX-' + slug + '-mockups.zip');
+    zipButton('Artwork (ZIP)', originals, 'DMX-' + slug + '-original-artwork.zip');
 
     var rx = 0, ry = 0, W, H, D, current = null;
     function layout() {
@@ -170,10 +171,10 @@
       VIEWS.forEach(function (x) { viewBtns[x.id].setAttribute('aria-pressed', v && v.id === x.id ? 'true' : 'false'); });
       if (v) {
         viewDl.href = base + 'mockup-' + slug + '-' + v.id + '.png';
-        viewDl.lastChild.textContent = v.label + ' view (PNG)';
+        viewDl.lastChild.textContent = v.label + ' PNG';
         viewDl.removeAttribute('aria-disabled');
       } else {
-        viewDl.href = '#'; viewDl.lastChild.textContent = 'Pick a view to download';
+        viewDl.href = '#'; viewDl.lastChild.textContent = 'PNG';
         viewDl.setAttribute('aria-disabled', 'true');
       }
     }

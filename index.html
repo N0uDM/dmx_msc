@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DMX Shower Base — Box Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#10195A; --ink:#10195A; --muted:#4A5170; --bg:#EEF0F4; --card:#FFFFFF; --line:#DADEE7; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Poppins', system-ui, sans-serif; }
+  header { background:var(--navy); color:#fff; padding:28px 16px; text-align:center; }
+  header h1 { margin:0; font-size:clamp(22px, 4vw, 34px); font-weight:700; letter-spacing:-0.01em; }
+  header p { margin:6px 0 0; font-size:15px; color:#C9CEE6; }
+  main { max-width:1320px; margin:0 auto; padding:32px 16px 56px; display:grid; gap:24px;
+         grid-template-columns:repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+  .stage { position:relative; height:560px; background:linear-gradient(180deg,#F3F4F7 0%,#F3F4F7 60%,#DCE0E8 100%);
+           perspective:2200px; perspective-origin:50% 12%; cursor:grab; touch-action:none; user-select:none; overflow:hidden; }
+  .stage:active { cursor:grabbing; }
+  .shadow { position:absolute; left:50%; transform:translateX(-50%); border-radius:50%; background:rgba(15,25,60,.32); filter:blur(18px); height:36px; transition:opacity .3s; }
+  .box { position:absolute; left:50%; top:50%; transform-style:preserve-3d; }
+  .face { position:absolute; backface-visibility:hidden; }
+  .face img { display:block; width:100%; height:100%; pointer-events:none; -webkit-user-drag:none; }
+  .face .shade { position:absolute; inset:0; }
+  .meta { padding:16px 20px 22px; display:flex; flex-direction:column; gap:14px; }
+  .meta h2 { margin:0; font-size:19px; font-weight:700; }
+  .meta p { margin:0; font-size:14px; color:var(--muted); }
+  .label { font-size:12px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 -6px; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; }
+  button, .btn { font:inherit; font-size:14px; font-weight:500; color:var(--navy); background:#fff; border:1.5px solid var(--navy);
+           border-radius:999px; padding:9px 15px; min-height:44px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:6px; }
+  button:hover, .btn:hover { background:#F0F2FA; }
+  button[aria-pressed="true"] { background:var(--navy); color:#fff; }
+  .btn.solid { background:var(--navy); color:#fff; }
+  .btn.solid:hover { background:#1E2A7A; }
+  .btn[aria-disabled="true"] { opacity:.45; pointer-events:none; }
+  .btn svg { width:16px; height:16px; }
+  footer { text-align:center; font-size:13px; color:var(--muted); padding:0 16px 40px; }
+  @media (max-width:480px){ .stage { height:460px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>DMX Shower Base — Box Mockups</h1>
+  <p>Drag a box to rotate it · download any view as a high-res PNG</p>
+</header>
+<main>
+  <section class="card" data-slug="38x60-circular" data-w="1637" data-h="2576" data-d="76">
+    <div class="stage" aria-label="3D box mockup, 38 by 60 inch circular drain"></div>
+    <div class="meta"><h2>38″ × 60″ · Circular Drain</h2>
+      <p class="label">View</p><div class="row views"></div>
+      <p class="label">Download</p><div class="row dl"></div></div>
+  </section>
+  <section class="card" data-slug="38x60-linear" data-w="1637" data-h="2576" data-d="76">
+    <div class="stage" aria-label="3D box mockup, 38 by 60 inch linear drain"></div>
+    <div class="meta"><h2>38″ × 60″ · Linear Drain</h2>
+      <p class="label">View</p><div class="row views"></div>
+      <p class="label">Download</p><div class="row dl"></div></div>
+  </section>
+  <section class="card" data-slug="48x48-circular" data-w="2576" data-h="2576" data-d="105">
+    <div class="stage" aria-label="3D box mockup, 48 by 48 inch circular drain"></div>
+    <div class="meta"><h2>48″ × 48″ · Circular Drain</h2>
+      <p class="label">View</p><div class="row views"></div>
+      <p class="label">Download</p><div class="row dl"></div></div>
+  </section>
+</main>
+<footer>DMX Membranes · www.dmxshowersystem.com</footer>
+<script src="assets/jszip.min.js"></script>
+<script>
+(function () {
+  // Same angles the PNG mockups were rendered at
+  var VIEWS = [
+    { id: 'front',  label: 'Front',   rx: 0,   ry: 0 },
+    { id: 'angle',  label: '3/4',     rx: -6,  ry: -26 },
+    { id: 'side',   label: 'Side',    rx: -6,  ry: -72 },
+    { id: 'top',    label: 'Top',     rx: -62, ry: -22 },
+    { id: 'bottom', label: 'Bottom',  rx: 62,  ry: -22 }
+  ];
+  var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>';
+
+  document.querySelectorAll('.card').forEach(function (card) {
+    var slug = card.dataset.slug, base = 'assets/' + slug + '/';
+    var stage = card.querySelector('.stage');
+    var aw = +card.dataset.w, ah = +card.dataset.h, ad = +card.dataset.d;
+    var box = document.createElement('div'); box.className = 'box';
+    var shadow = document.createElement('div'); shadow.className = 'shadow';
+    stage.appendChild(shadow); stage.appendChild(box);
+
+    function face(src, alt, shade) {
+      var f = document.createElement('div'); f.className = 'face';
+      var img = document.createElement('img'); img.src = src; img.alt = alt; f.appendChild(img);
+      if (shade) { var s = document.createElement('div'); s.className = 'shade'; s.style.background = shade; f.appendChild(s); }
+      box.appendChild(f); return f;
+    }
+    var o = base + 'original/' + slug;
+    var F = {
+      front: face(o + '-front-back.jpg', 'Front panel'),
+      back: face(o + '-front-back.jpg', 'Back panel'),
+      right: face(o + '-left-right-sides.jpg', 'Right side', 'rgba(10,20,50,.22)'),
+      left: face(o + '-left-right-sides.jpg', 'Left side', 'rgba(10,20,50,.22)'),
+      top: face(o + '-top.jpg', 'Top panel', 'rgba(255,255,255,.1)'),
+      bottom: face(o + '-bottom.jpg', 'Bottom panel', 'rgba(10,20,50,.12)')
+    };
+
+    // View buttons
+    var viewRow = card.querySelector('.views'), viewBtns = {};
+    VIEWS.forEach(function (v) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = v.label;
+      b.addEventListener('click', function () { go(v); });
+      viewRow.appendChild(b); viewBtns[v.id] = b;
+    });
+
+    // Download buttons
+    var dlRow = card.querySelector('.dl');
+    function link(text, href, solid) {
+      var a = document.createElement('a'); a.className = 'btn' + (solid ? ' solid' : ''); a.href = href; a.setAttribute('download', '');
+      a.innerHTML = ICON; a.appendChild(document.createTextNode(text)); dlRow.appendChild(a); return a;
+    }
+    var viewDl = link('This view (PNG)', '#', true);
+    var mockups = VIEWS.map(function (v) { return 'mockup-' + slug + '-' + v.id + '.png'; });
+    var originals = ['front-back', 'left-right-sides', 'top', 'bottom'].map(function (n) { return 'original/' + slug + '-' + n + '.jpg'; });
+    function zipButton(text, files, zipName) {
+      var b = document.createElement('button'); b.type = 'button'; b.innerHTML = ICON; b.appendChild(document.createTextNode(text));
+      b.addEventListener('click', function () {
+        var label = b.lastChild, old = label.textContent; label.textContent = 'Preparing…'; b.disabled = true;
+        var zip = new JSZip();
+        Promise.all(files.map(function (f) {
+          return fetch(base + f).then(function (r) { if (!r.ok) throw new Error(f); return r.blob(); })
+            .then(function (blob) { zip.file(f.split('/').pop(), blob); });
+        })).then(function () { return zip.generateAsync({ type: 'blob' }); })
+          .then(function (blob) {
+            var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = zipName;
+            document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+          })
+          .catch(function () { alert('Download failed — this needs the page to be opened from a web host, not as a local file.'); })
+          .then(function () { label.textContent = old; b.disabled = false; });
+      });
+      dlRow.appendChild(b);
+    }
+    zipButton('All views + artwork (ZIP)', mockups.concat(originals), 'DMX-' + slug + '-mockups.zip');
+    zipButton('Original artwork (ZIP)', originals, 'DMX-' + slug + '-original-artwork.zip');
+
+    var rx = 0, ry = 0, W, H, D, current = null;
+    function layout() {
+      var sw = stage.clientWidth, sh = stage.clientHeight;
+      var scale = Math.min((sh * 0.72) / ah, (sw * 0.62) / aw);
+      W = aw * scale; H = ah * scale; D = Math.max(ad * scale, 6);
+      box.style.width = W + 'px'; box.style.height = H + 'px';
+      box.style.marginLeft = -W / 2 + 'px'; box.style.marginTop = -H / 2 + 'px';
+      function set(el, w, h, l, t, tr) { el.style.width = w + 'px'; el.style.height = h + 'px'; el.style.left = l + 'px'; el.style.top = t + 'px'; el.style.transform = tr; }
+      set(F.front, W, H, 0, 0, 'translateZ(' + D / 2 + 'px)');
+      set(F.back, W, H, 0, 0, 'rotateY(180deg) translateZ(' + D / 2 + 'px)');
+      set(F.right, D, H, (W - D) / 2, 0, 'rotateY(90deg) translateZ(' + W / 2 + 'px)');
+      set(F.left, D, H, (W - D) / 2, 0, 'rotateY(-90deg) translateZ(' + W / 2 + 'px)');
+      set(F.top, W, D, 0, (H - D) / 2, 'rotateX(90deg) translateZ(' + H / 2 + 'px)');
+      set(F.bottom, W, D, 0, (H - D) / 2, 'rotateX(-90deg) translateZ(' + H / 2 + 'px)');
+      shadow.style.top = (sh / 2 + H / 2 - 14) + 'px';
+      apply();
+    }
+    function apply() {
+      box.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      var r = ry * Math.PI / 180;
+      shadow.style.width = (W * Math.abs(Math.cos(r)) + D * Math.abs(Math.sin(r)) + 80) + 'px';
+      shadow.style.opacity = Math.abs(rx) > 20 ? 0 : 1;
+    }
+    function mark(v) {
+      current = v;
+      VIEWS.forEach(function (x) { viewBtns[x.id].setAttribute('aria-pressed', v && v.id === x.id ? 'true' : 'false'); });
+      if (v) {
+        viewDl.href = base + 'mockup-' + slug + '-' + v.id + '.png';
+        viewDl.lastChild.textContent = v.label + ' view (PNG)';
+        viewDl.removeAttribute('aria-disabled');
+      } else {
+        viewDl.href = '#'; viewDl.lastChild.textContent = 'Pick a view to download';
+        viewDl.setAttribute('aria-disabled', 'true');
+      }
+    }
+    function go(v) {
+      box.style.transition = 'transform .6s cubic-bezier(.2,.7,.2,1)';
+      rx = v.rx; ry = v.ry; apply(); mark(v);
+    }
+
+    var dragging = false, sx = 0, sy = 0, srx = 0, sry = 0;
+    stage.addEventListener('pointerdown', function (e) {
+      dragging = true; sx = e.clientX; sy = e.clientY; srx = rx; sry = ry;
+      box.style.transition = 'none'; stage.setPointerCapture(e.pointerId);
+    });
+    stage.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      ry = sry + (e.clientX - sx) * 0.4;
+      rx = Math.max(-85, Math.min(85, srx - (e.clientY - sy) * 0.4));
+      apply(); if (current) mark(null);
+    });
+    ['pointerup', 'pointercancel'].forEach(function (t) { stage.addEventListener(t, function () { dragging = false; }); });
+
+    window.addEventListener('resize', layout);
+    rx = VIEWS[1].rx; ry = VIEWS[1].ry;
+    layout(); mark(VIEWS[1]);
+  });
+})();
+</script>
+</body>
+</html>

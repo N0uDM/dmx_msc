@@ -108,6 +108,12 @@
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
+  <section class="card" data-slug="mixing-valve" data-w="3000" data-h="3300" data-d="30" data-ext="png" data-ring="1482,1640,537,652,120,18,52,140">
+    <div class="stage" aria-label="3D mockup, DMX mixing valve seal on a die-cut card"></div>
+    <div class="meta"><h2>Mixing Valve Seal · 4-1/2″ (114 mm)</h2>
+      <p class="label">View</p><div class="row views"></div>
+      <p class="label">Download</p><div class="row dl"></div></div>
+  </section>
 </main>
 <footer>DMX Membranes · www.dmxshowersystem.com</footer>
 <script src="assets/jszip.min.js"></script>
@@ -146,6 +152,38 @@
       top: face(o + '-top' + ext, 'Top panel', 'rgba(255,255,255,.1)'),
       bottom: face(o + '-bottom' + ext, 'Bottom panel', 'rgba(10,20,50,.12)')
     };
+
+    // Optional raised collar around a die-cut hole: data-ring="cx,cy,rIn,rOut,height,r,g,b" (source px)
+    var ring = null;
+    if (card.dataset.ring) {
+      var rv = card.dataset.ring.split(',').map(Number), NSEG = 60;
+      var Lx = -0.45, Ly = -0.6, Ll = Math.hypot(Lx, Ly, 0.66);
+      var col = function (k) { return 'rgb(' + [rv[5], rv[6], rv[7]].map(function (c) { return Math.min(255, Math.round(c * k)); }).join(',') + ')'; };
+      var mk = function (bg) { var e = document.createElement('div'); e.style.position = 'absolute'; e.style.left = '0'; e.style.top = '0'; e.style.background = bg; box.appendChild(e); return e; };
+      var outer = [], inner = [];
+      for (var i = 0; i < NSEG; i++) {
+        var t = (i + 0.5) / NSEG * 2 * Math.PI, nx = Math.sin(t), ny = -Math.cos(t);
+        outer.push({ el: mk(col(0.42 + 0.68 * Math.max(0, (nx * Lx + ny * Ly) / Ll))), t: t });
+        inner.push({ el: mk(col(0.42 + 0.68 * Math.max(0, (-nx * Lx - ny * Ly) / Ll))), t: t });
+      }
+      var top = mk('transparent'); top.style.borderRadius = '50%'; top.style.boxSizing = 'border-box';
+      top.style.borderStyle = 'solid'; top.style.borderColor = col(0.42 + 0.68 * 0.66 / Ll);
+      ring = function (s, Dpx) {
+        var cx = rv[0] * s, cy = rv[1] * s, ri = rv[2] * s, ro = rv[3] * s, hh = rv[4] * s;
+        var segO = 2 * ro * Math.sin(Math.PI / NSEG) + 1, segI = 2 * ri * Math.sin(Math.PI / NSEG) + 1;
+        outer.forEach(function (o) {
+          o.el.style.width = segO + 'px'; o.el.style.height = hh + 'px';
+          o.el.style.transform = 'translate3d(' + (cx - segO / 2) + 'px,' + (cy - hh / 2) + 'px,' + Dpx / 2 + 'px) rotateZ(' + o.t + 'rad) translateY(' + (-ro) + 'px) translateZ(' + hh / 2 + 'px) rotateX(90deg)';
+        });
+        inner.forEach(function (o) {
+          var ht = hh + Dpx;
+          o.el.style.width = segI + 'px'; o.el.style.height = ht + 'px';
+          o.el.style.transform = 'translate3d(' + (cx - segI / 2) + 'px,' + (cy - ht / 2) + 'px,0px) rotateZ(' + o.t + 'rad) translateY(' + (-ri) + 'px) translateZ(' + hh / 2 + 'px) rotateX(90deg)';
+        });
+        top.style.width = top.style.height = 2 * ro + 'px'; top.style.borderWidth = (ro - ri) + 'px';
+        top.style.transform = 'translate3d(' + (cx - ro) + 'px,' + (cy - ro) + 'px,' + (Dpx / 2 + hh) + 'px)';
+      };
+    }
 
     // View buttons
     var viewRow = card.querySelector('.views'), viewBtns = {};
@@ -199,6 +237,7 @@
       set(F.left, D, H, (W - D) / 2, 0, 'rotateY(-90deg) translateZ(' + W / 2 + 'px)');
       set(F.top, W, D, 0, (H - D) / 2, 'rotateX(90deg) translateZ(' + H / 2 + 'px)');
       set(F.bottom, W, D, 0, (H - D) / 2, 'rotateX(-90deg) translateZ(' + H / 2 + 'px)');
+      if (ring) ring(W / aw, D);
       shadow.style.top = (sh / 2 + H / 2 - 14) + 'px';
       apply();
     }

@@ -102,9 +102,9 @@
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="pipe-seal" data-w="2600" data-h="2600" data-d="26">
+  <section class="card" data-slug="pipe-seal" data-w="2600" data-h="3050" data-d="30" data-ext="png">
     <div class="stage" aria-label="3D mockup, DMX pipe seal with label"></div>
-    <div class="meta"><h2>Pipe Seal · 1″ (25 mm)</h2>
+    <div class="meta"><h2>Pipe Seal · 1″ (25 mm) · Zip Bag</h2>
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
@@ -124,7 +124,7 @@
   var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>';
 
   document.querySelectorAll('.card').forEach(function (card) {
-    var slug = card.dataset.slug, base = 'assets/' + slug + '/';
+    var slug = card.dataset.slug, base = 'assets/' + slug + '/', ext = '.' + (card.dataset.ext || 'jpg');
     var stage = card.querySelector('.stage');
     var aw = +card.dataset.w, ah = +card.dataset.h, ad = +card.dataset.d;
     var box = document.createElement('div'); box.className = 'box';
@@ -139,12 +139,12 @@
     }
     var o = base + 'original/' + slug;
     var F = {
-      front: face(o + '-front-back.jpg', 'Front panel'),
-      back: face(o + '-front-back.jpg', 'Back panel'),
-      right: face(o + '-left-right-sides.jpg', 'Right side', 'rgba(10,20,50,.22)'),
-      left: face(o + '-left-right-sides.jpg', 'Left side', 'rgba(10,20,50,.22)'),
-      top: face(o + '-top.jpg', 'Top panel', 'rgba(255,255,255,.1)'),
-      bottom: face(o + '-bottom.jpg', 'Bottom panel', 'rgba(10,20,50,.12)')
+      front: face(o + '-front-back' + ext, 'Front panel'),
+      back: face(o + '-front-back' + ext, 'Back panel'),
+      right: face(o + '-left-right-sides' + ext, 'Right side', 'rgba(10,20,50,.22)'),
+      left: face(o + '-left-right-sides' + ext, 'Left side', 'rgba(10,20,50,.22)'),
+      top: face(o + '-top' + ext, 'Top panel', 'rgba(255,255,255,.1)'),
+      bottom: face(o + '-bottom' + ext, 'Bottom panel', 'rgba(10,20,50,.12)')
     };
 
     // View buttons
@@ -163,7 +163,7 @@
     }
     var viewDl = link('This view (PNG)', '#', true);
     var mockups = VIEWS.map(function (v) { return 'mockup-' + slug + '-' + v.id + '.png'; });
-    var originals = ['front-back', 'left-right-sides', 'top', 'bottom'].map(function (n) { return 'original/' + slug + '-' + n + '.jpg'; });
+    var originals = ['front-back', 'left-right-sides', 'top', 'bottom'].map(function (n) { return 'original/' + slug + '-' + n + ext; });
     function zipButton(text, files, zipName) {
       var b = document.createElement('button'); b.type = 'button'; b.innerHTML = ICON; b.appendChild(document.createTextNode(text));
       b.addEventListener('click', function () {

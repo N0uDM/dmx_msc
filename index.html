@@ -121,6 +121,24 @@
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
+  <section class="card" data-slug="seam-band-5x33" data-mode="frames" data-frames="36" data-originals="seam-band-5x33-label.png">
+    <div class="stage" aria-label="Seam Band · 5″ × 33′"></div>
+    <div class="meta"><h2>Seam Band · 5″ × 33′</h2>
+      <p class="label">View</p><div class="row views"></div>
+      <p class="label">Download</p><div class="row dl"></div></div>
+  </section>
+  <section class="card" data-slug="seam-band-5x16-5" data-mode="frames" data-frames="36" data-originals="seam-band-5x16-5-label.png">
+    <div class="stage" aria-label="Seam Band · 5″ × 16.5′"></div>
+    <div class="meta"><h2>Seam Band · 5″ × 16.5′</h2>
+      <p class="label">View</p><div class="row views"></div>
+      <p class="label">Download</p><div class="row dl"></div></div>
+  </section>
+  <section class="card" data-slug="screws-washers" data-mode="photo" data-photo="screws-washers-photo.png">
+    <div class="stage" aria-label="Screws &amp; Washers · 40 + 40"></div>
+    <div class="meta"><h2>Screws &amp; Washers · 40 + 40</h2>
+      <p class="label">View</p><div class="row views"></div>
+      <p class="label">Download</p><div class="row dl"></div></div>
+  </section>
 </main>
 <footer>DMX Membranes · www.dmxshowersystem.com</footer>
 <script src="assets/jszip.min.js"></script>
@@ -196,6 +214,15 @@
 
   document.querySelectorAll('.card').forEach(function (card) {
     if (card.dataset.mode === 'frames') { setupFrames(card); return; }
+    if (card.dataset.mode === 'photo') {   // product photo only (no 3D art yet)
+      var src = 'assets/' + card.dataset.slug + '/' + card.dataset.photo;
+      var pi = document.createElement('img'); pi.className = 'frame'; pi.src = src; pi.alt = card.querySelector('h2').textContent;
+      card.querySelector('.stage').appendChild(pi); card.querySelector('.stage').style.cursor = 'default';
+      card.querySelector('.views').style.display = 'none';
+      var pa = document.createElement('a'); pa.className = 'btn solid'; pa.href = src; pa.setAttribute('download', '');
+      pa.innerHTML = ICON; pa.appendChild(document.createTextNode('Photo PNG')); card.querySelector('.dl').appendChild(pa);
+      return;
+    }
     var slug = card.dataset.slug, base = 'assets/' + slug + '/', ext = '.' + (card.dataset.ext || 'jpg');
     var stage = card.querySelector('.stage');
     var aw = +card.dataset.w, ah = +card.dataset.h, ad = +card.dataset.d;

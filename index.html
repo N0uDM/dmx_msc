@@ -49,19 +49,19 @@
   <p>Drag to rotate · pick a view to download it as a PNG</p>
 </header>
 <main>
-  <section class="card" data-slug="38x60-circular" data-w="1637" data-h="2576" data-d="76">
+  <section class="card" data-slug="38x60-circular" data-w="1638" data-h="2576" data-d="76" data-pdf="DMX-Shower-Base-38x60-Circular.pdf">
     <div class="stage" aria-label="3D box mockup, 38 by 60 inch circular drain"></div>
     <div class="meta"><h2>38″ × 60″ · Circular Drain</h2>
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="38x60-linear" data-w="1637" data-h="2576" data-d="76">
+  <section class="card" data-slug="38x60-linear" data-w="1641" data-h="2576" data-d="86" data-pdf="DMX-Shower-Base-38x60-Linear.pdf">
     <div class="stage" aria-label="3D box mockup, 38 by 60 inch linear drain"></div>
     <div class="meta"><h2>38″ × 60″ · Linear Drain</h2>
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="48x48-circular" data-w="2576" data-h="2576" data-d="105">
+  <section class="card" data-slug="48x48-circular" data-w="2576" data-h="2576" data-d="105" data-pdf="DMX-Shower-Base-48x48-Circular.pdf">
     <div class="stage" aria-label="3D box mockup, 48 by 48 inch circular drain"></div>
     <div class="meta"><h2>48″ × 48″ · Circular Drain</h2>
       <p class="label">View</p><div class="row views"></div>
@@ -321,6 +321,7 @@
     }
     zipButton('All views (ZIP)', mockups.concat(originals), 'DMX-' + slug + '-mockups.zip');
     zipButton('Artwork (ZIP)', originals, 'DMX-' + slug + '-original-artwork.zip');
+    if (card.dataset.pdf) link('Print PDF (full quality)', base + card.dataset.pdf);
 
     var rx = 0, ry = 0, W, H, D, current = null;
     function layout() {

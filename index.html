@@ -127,7 +127,7 @@
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="sealant" data-mode="frames" data-frames="36" data-originals="sealant-label.png">
+  <section class="card" data-slug="sealant" data-mode="frames" data-frames="36" data-originals="sealant-label.png" data-pdf="DMX-Sealant-Label.pdf">
     <div class="stage" aria-label="3D mockup, DMX Sealant 10 oz cartridge"></div>
     <div class="meta"><h2>Sealant · 10 oz (300 ml) Cartridge</h2>
       <p class="label">View</p><div class="row views"></div>
@@ -191,6 +191,8 @@
     var originals = (card.dataset.originals || '').split(',').filter(Boolean).map(function (n) { return 'original/' + n; });
     makeZip(dlRow, base, 'All views (ZIP)', mockups.concat(originals), 'DMX-' + slug + '-mockups.zip');
     makeZip(dlRow, base, 'Artwork (ZIP)', originals, 'DMX-' + slug + '-original-artwork.zip');
+    if (card.dataset.pdf) { var pl = document.createElement('a'); pl.className = 'btn'; pl.href = base + card.dataset.pdf; pl.setAttribute('download', '');
+      pl.innerHTML = ICON; pl.appendChild(document.createTextNode('Print PDF (full quality)')); dlRow.appendChild(pl); }
     var drag = false, sx = 0, s0 = 0;
     stage.addEventListener('pointerdown', function (e) { drag = true; sx = e.clientX; s0 = cur; stage.setPointerCapture(e.pointerId); });
     stage.addEventListener('pointermove', function (e) {

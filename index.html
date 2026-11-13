@@ -49,13 +49,13 @@
   <p>Drag to rotate · pick a view to download it as a PNG</p>
 </header>
 <main>
-  <section class="card" data-slug="38x60-circular" data-w="1638" data-h="2576" data-d="76" data-pdf="DMX-Shower-Base-38x60-Circular.pdf">
+  <section class="card" data-slug="38x60-circular" data-w="1640" data-h="2576" data-d="84" data-pdf="DMX-Shower-Base-38x60-Circular.pdf">
     <div class="stage" aria-label="3D box mockup, 38 by 60 inch circular drain"></div>
     <div class="meta"><h2>38″ × 60″ · Circular Drain</h2>
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="38x60-linear" data-w="1641" data-h="2576" data-d="86" data-pdf="DMX-Shower-Base-38x60-Linear.pdf">
+  <section class="card" data-slug="38x60-linear" data-w="1643" data-h="2576" data-d="94" data-pdf="DMX-Shower-Base-38x60-Linear.pdf">
     <div class="stage" aria-label="3D box mockup, 38 by 60 inch linear drain"></div>
     <div class="meta"><h2>38″ × 60″ · Linear Drain</h2>
       <p class="label">View</p><div class="row views"></div>
@@ -67,7 +67,7 @@
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="shower-kit-38x60" data-w="1649" data-h="2576" data-d="375" data-pdf="DMX-Shower-Kit-38x60.pdf">
+  <section class="card" data-slug="shower-kit-38x60" data-w="1649" data-h="2576" data-d="242" data-pdf="DMX-Shower-Kit-38x60.pdf">
     <div class="stage" aria-label="3D box mockup, DMX shower kit 38 by 60 inch circular drain"></div>
     <div class="meta"><h2>Shower Kit · 38″ × 60″ · Circular Drain</h2>
       <p class="label">View</p><div class="row views"></div>
@@ -79,13 +79,13 @@
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="shower-niche" data-w="1764" data-h="2556" data-d="453" data-pdf="DMX-Shower-Niche.pdf">
+  <section class="card" data-slug="shower-niche" data-w="1660" data-h="2556" data-d="452" data-pdf="DMX-Shower-Niche.pdf">
     <div class="stage" aria-label="3D box mockup, DMX shower niche"></div>
     <div class="meta"><h2>Shower Niche · 12″ × 21.25″ × 3.5″</h2>
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
-  <section class="card" data-slug="shower-curb" data-w="3564" data-h="468" data-d="360" data-pdf="DMX-Shower-Curb.pdf">
+  <section class="card" data-slug="shower-curb" data-w="3528" data-h="360" data-d="245" data-back="1" data-pdf="DMX-Shower-Curb.pdf">
     <div class="stage" aria-label="3D box mockup, DMX shower curb"></div>
     <div class="meta"><h2>Shower Curb · 48″ × 4.5″ × 3″</h2>
       <p class="label">View</p><div class="row views"></div>
@@ -142,12 +142,6 @@
   <section class="card" data-slug="outside-corner" data-w="2026" data-h="3000" data-d="20" data-ext="png" data-pdf="DMX-Outside-Corner-Label.pdf">
     <div class="stage" aria-label="3D mockup, DMX outside corner bag label"></div>
     <div class="meta"><h2>Outside Corner · Bag Label</h2>
-      <p class="label">View</p><div class="row views"></div>
-      <p class="label">Download</p><div class="row dl"></div></div>
-  </section>
-  <section class="card" data-slug="sealant" data-mode="frames" data-frames="36" data-originals="sealant-label.png" data-pdf="DMX-Sealant-Label.pdf">
-    <div class="stage" aria-label="3D mockup, DMX Sealant 10 oz cartridge"></div>
-    <div class="meta"><h2>Sealant · 10 oz (300 ml) Cartridge</h2>
       <p class="label">View</p><div class="row views"></div>
       <p class="label">Download</p><div class="row dl"></div></div>
   </section>
@@ -271,7 +265,7 @@
     var o = base + 'original/' + slug;
     var F = {
       front: face(o + '-front-back' + ext, 'Front panel'),
-      back: face(o + '-front-back' + ext, 'Back panel'),
+      back: face(o + (card.dataset.back ? '-back' : '-front-back') + ext, 'Back panel'),
       right: face(o + '-left-right-sides' + ext, 'Right side', 'rgba(10,20,50,.22)'),
       left: face(o + '-left-right-sides' + ext, 'Left side', 'rgba(10,20,50,.22)'),
       top: face(o + '-top' + ext, 'Top panel', 'rgba(255,255,255,.1)'),
@@ -326,7 +320,7 @@
     }
     var viewDl = link('This view (PNG)', '#', true);
     var mockups = VIEWS.map(function (v) { return 'mockup-' + slug + '-' + v.id + '.png'; });
-    var originals = ['front-back', 'left-right-sides', 'top', 'bottom'].map(function (n) { return 'original/' + slug + '-' + n + ext; });
+    var originals = ['front-back'].concat(card.dataset.back ? ['back'] : [], ['left-right-sides', 'top', 'bottom']).map(function (n) { return 'original/' + slug + '-' + n + ext; });
     function zipButton(text, files, zipName) {
       var b = document.createElement('button'); b.type = 'button'; b.innerHTML = ICON; b.appendChild(document.createTextNode(text));
       b.addEventListener('click', function () {
